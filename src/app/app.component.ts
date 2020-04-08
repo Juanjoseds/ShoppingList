@@ -1,34 +1,55 @@
-import {Component, OnInit} from '@angular/core';
-import {FormControl} from '@angular/forms';
-import {Observable} from 'rxjs';
-import {map, startWith} from 'rxjs/operators';
+import {Component} from '@angular/core';
 
-/**
- * @title Simple autocomplete
- */
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-// tslint:disable-next-line:component-class-suffix
-export class AutocompleteSimpleExample implements OnInit {
-  myControl = new FormControl();
-  options: string[] = ['Ketchup', 'Pan', 'Queso', 'Tomate', 'Aceite de oliva'];
-  filteredOptions: Observable<string[]>;
+export class AppComponent {
+  title = 'ShoppingList';
+  model = {
+    user: 'DAW',
+    items: [],
+    cart: []
+  };
 
-  ngOnInit() {
-    this.filteredOptions = this.myControl.valueChanges
-      .pipe(
-        startWith(''),
-        map(value => this._filter(value))
-      );
+  addItem(producto) {
+    if (this.model.items.length !== 0) {
+      // Comprobamos si ya existe el producto
+      let duplicado = false;
+      this.model.items.forEach((item) => {
+        if (item.product === producto) {
+          duplicado = true;
+        }
+      });
+
+      // Si el producto existe lo añadimos a la lista de la compra
+      if (duplicado) {
+        this.addShoppingList(producto);
+      } else {
+        // Si no existe, lo añadimos al JSON y a la lista de la compra
+        this.model.items.push({product: producto, bought: false, supermarket: null, price: null});
+        this.addShoppingList(producto);
+      }
+    // Si el JSON está vacío lo añadimos al JSON y a la lista de la compra
+    } else {
+      this.model.items.push({product: producto, bought: false, supermarket: null, price: null});
+      this.addShoppingList(producto);
+    }
+    console.log(this.model.cart);
+    console.log(this.model.items);
   }
 
-  private _filter(value: string): string[] {
-    console.log(value);
-    const filterValue = value.toLowerCase();
+  getProducts() {
+    let products: string[] = [];
+    this.model.items.forEach((item, index) => products.push(item.product));
+    return products;
 
-    return this.options.filter(option => option.toLowerCase().includes(filterValue));
+  }
+
+  addShoppingList(producto){
+    if (this.model.cart.indexOf(producto) === -1){
+      this.model.cart.push(producto);
+    }
   }
 }
