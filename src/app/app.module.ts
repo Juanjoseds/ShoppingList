@@ -15,13 +15,16 @@ import {MatInputModule} from '@angular/material/input';
 import {ReactiveFormsModule} from '@angular/forms';
 import {SearchComponent} from './search.component';
 import {NavbarComponent} from './navbar.component';
+import {CardsComponent} from './cards.component';
+import {MatListModule} from '@angular/material/list';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     SearchComponent,
-    NavbarComponent
+    NavbarComponent,
+    CardsComponent
   ],
   imports: [
     BrowserModule,
@@ -36,6 +39,7 @@ import {NavbarComponent} from './navbar.component';
     MatAutocompleteModule,
     MatInputModule,
     ReactiveFormsModule,
+    MatListModule,
 
   ],
   providers: [],

@@ -44,7 +44,6 @@ export class AppComponent {
     let products: string[] = [];
     this.model.items.forEach((item, index) => products.push(item.product));
     return products;
-
   }
 
   addShoppingList(producto){
