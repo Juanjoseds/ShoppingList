@@ -23,6 +23,7 @@ import {startWith, map, debounceTime, filter} from 'rxjs/operators';
             <button class="btn btn-outline-secondary" (click)="appComponent.addItem(myControl.value); myControl.setValue('');">Añadir</button>
           </div>
         </div>
+      </div>
 `
 })
 export class SearchComponent implements OnInit{
