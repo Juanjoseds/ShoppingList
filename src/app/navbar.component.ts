@@ -5,12 +5,12 @@ import {Component, OnInit} from '@angular/core';
   selector: 'app-navbar',
   template: `
     <mat-menu #appMenu="matMenu" yPosition="above">
-      <button mat-menu-item>Settings</button>
+      <button mat-menu-item>Guardados</button>
       <button mat-menu-item>Help</button>
     </mat-menu>
 
     <mat-toolbar>
-      <span>Shopping List</span>
+      <span class="title"><i class="fas fa-shopping-basket"></i> Mi carrito</span>
       <span class="AppOptions"></span>
       <span>
         <button mat-icon-button [matMenuTriggerFor]="appMenu">

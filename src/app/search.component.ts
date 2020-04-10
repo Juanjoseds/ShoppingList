@@ -9,7 +9,7 @@ import {startWith, map, debounceTime, filter} from 'rxjs/operators';
   template: `
       <div class="card-body">
         <div class="input-group input-group-sm mb-2">
-          <input class="form-control form-margin" type="text" #item
+          <input class="form-control form-margin mt-0" type="text" #item
                  placeholder="Buscar producto..."
                  aria-label="Number"
                  [formControl]="myControl"
@@ -26,7 +26,7 @@ import {startWith, map, debounceTime, filter} from 'rxjs/operators';
       </div>
 `
 })
-export class SearchComponent implements OnInit{
+export class SearchComponent implements OnInit {
   myControl = new FormControl();
   options: string[] = this.appComponent.getProducts();
   filteredOptions: Observable<string[]>;
@@ -48,5 +48,4 @@ export class SearchComponent implements OnInit{
     this.options = this.appComponent.getProducts();
     return this.options.filter(option => option.toLowerCase().includes(filterValue));
   }
-
 }
