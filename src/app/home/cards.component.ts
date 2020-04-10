@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {AppComponent} from './app.component';
+import {HomeComponent} from './home.component';
 
 @Component({
   selector: 'app-card-list',
@@ -20,14 +20,14 @@ import {AppComponent} from './app.component';
 })
 
 export class CardsComponent {
-  constructor(public appComponent: AppComponent) {}
-  cart: string[] = this.appComponent.model.cart;
+  constructor(public homeComponent: HomeComponent) {}
+  cart: string[] = this.homeComponent.model.cart;
 
   /*
   *   Método que cambia el valor de 'bought' del producto al hacer clic en el checkbox
    */
   onChecked(item){
-    this.appComponent.model.items.forEach((i) => {
+    this.homeComponent.model.items.forEach((i) => {
       if (i.product === item) {
         console.log(i.bought);
         i.bought = !i.bought;
@@ -40,7 +40,7 @@ export class CardsComponent {
   * Escribimos en el HTML el nombre del supermercado
   */
   getSupermarket(item){
-    this.appComponent.model.items.forEach((i) => {
+    this.homeComponent.model.items.forEach((i) => {
       if (i.product === item) {
         i.supermarket = 'Mercadona';
         document.getElementById(item + '1').innerHTML = i.supermarket;
@@ -53,7 +53,7 @@ export class CardsComponent {
   */
 
   getPrice(item){
-    this.appComponent.model.items.forEach((i) => {
+    this.homeComponent.model.items.forEach((i) => {
       if (i.product === item) {
         i.price = 500;
         document.getElementById(item + '2').innerHTML = i.price + ' €';

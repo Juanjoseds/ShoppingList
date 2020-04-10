@@ -13,17 +13,22 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import {MatInputModule} from '@angular/material/input';
 import {ReactiveFormsModule} from '@angular/forms';
-import {SearchComponent} from './search.component';
-import {NavbarComponent} from './navbar.component';
-import {CardsComponent} from './cards.component';
+import {SearchComponent} from './home/search.component';
+import {NavbarComponent} from './home/navbar.component';
+import {CardsComponent} from './home/cards.component';
 import {MatListModule} from '@angular/material/list';
+import { DetailsComponent } from './details/details.component';
+import {RouterModule} from '@angular/router';
+import { HomeComponent } from './home/home.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     SearchComponent,
     NavbarComponent,
-    CardsComponent
+    CardsComponent,
+    DetailsComponent,
+    HomeComponent
 
   ],
   imports: [
@@ -39,7 +44,11 @@ import {MatListModule} from '@angular/material/list';
     MatAutocompleteModule,
     MatInputModule,
     ReactiveFormsModule,
-    MatListModule
+    MatListModule,
+    RouterModule.forRoot([
+      {path: '', component: HomeComponent},
+      {path: 'details', component: DetailsComponent}
+    ])
 
   ],
   providers: [],
