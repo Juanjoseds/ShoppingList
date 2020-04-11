@@ -20,6 +20,7 @@ import {MatListModule} from '@angular/material/list';
 import { DetailsComponent } from './details/details.component';
 import {RouterModule} from '@angular/router';
 import { HomeComponent } from './home/home.component';
+import {MatCheckboxModule} from '@angular/material/checkbox';
 
 @NgModule({
   declarations: [
@@ -48,7 +49,8 @@ import { HomeComponent } from './home/home.component';
     RouterModule.forRoot([
       {path: '', component: HomeComponent},
       {path: 'details', component: DetailsComponent}
-    ])
+    ]),
+    MatCheckboxModule
 
   ],
   providers: [],

@@ -6,17 +6,33 @@ import {HomeComponent} from './home.component';
   template: `
     <div class="mainproducts">
 
-      <div class="card ml-1 mr-1" *ngFor="let item of cart; let i = index">
-        <div class="card-body grid">
-            <div><input type="checkbox" class="checkbox" id="" (click)="onChecked(item)"></div>
-            <div><p class="productname">{{item}}</p></div>
+      <div *ngIf="homeComponent.getCartLength() > 0">
+        <div class="card ml-1 mr-1 mb-1" *ngFor="let item of cart;">
+          <div class="card-body grid">
+                <div class="checkboxdiv"><mat-checkbox color="primary" class="checkbox" (click)="onChecked(item)"></mat-checkbox></div>
+                <div class="product-info">
+                  <p class="productname">{{item}}</p>
+                  <p class="product-supermarket" id="{{item}}1">{{getSupermarket(item)}}</p>
+                  <p class="product-price" id="{{item}}2">{{getPrice(item)}}</p>
+                </div>
+                <div class="product-icons">
+                  <div><i class="fas fa-trash"></i></div>
+                  <div><i class="far fa-edit"></i></div>
+                </div>
+            </div>
+
         </div>
-        <p id="{{item}}1">{{getSupermarket(item)}}</p>
-        <p id="{{item}}2">{{getPrice(item)}}</p>
       </div>
 
-    </div>
-  `
+      <div class="main-empty-parent" *ngIf="homeComponent.getCartLength() == 0">
+        <div class="main-empty">
+          <p class="p-icon"><i class="fas fa-broom"></i></p>
+          <p class="p-text">La lista de la compra esta vacía</p>
+        </div>
+      </div>
+
+    </div>`,
+  styleUrls: ['./home.component.scss']
 })
 
 export class CardsComponent {

@@ -6,9 +6,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
-  title = 'ShoppingList';
   errorMessage: string[] = ['Has superado los carácteres permitidos',
-    'No puedes dejar en blanco el nombre del producto'];;
+    'No puedes dejar en blanco el nombre del producto'];
   model = {
     user: 'DAW',
     items: [],
@@ -59,6 +58,10 @@ export class HomeComponent implements OnInit {
     let products: string[] = [];
     this.model.items.forEach((item, index) => products.push(item.product));
     return products;
+  }
+
+  getCartLength(){
+    return this.model.cart.length;
   }
 
   /*

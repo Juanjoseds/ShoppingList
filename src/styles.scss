@@ -1,7 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
 @import '~bootstrap/dist/css/bootstrap.min.css';
 
-
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
@@ -9,22 +8,17 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   margin-bottom: 0!important;
 }
 
-.title{
-  font-family: 'Merienda', cursive;
+.mat-checkbox-inner-container {
+  height: 30px!important;
+  width: 30px!important;
+  margin:0!important;
 }
 
-.checkbox{
-  width: 30px;
-  height: 30px;
-}
-.grid{
-  display: grid;
-  grid-template-columns: 30px auto;
+.mat-checkbox{
+  color: rgb(0,178,0)!important;
+  margin:0!important;
 }
 
-.productname{
-  margin-left: 1em;
-  font-weight: bold;
-  font-size: 20px;
-  font-family: 'Merienda', cursive;
-}
+
+
+

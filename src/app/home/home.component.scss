@@ -1,0 +1,98 @@
+@import '~bootstrap/dist/css/bootstrap.min.css';
+.AppOptions{
+  flex: 1 1 auto;
+}
+
+.mainAlert{
+  margin-top: 1em;
+  margin-left: 1em;
+  margin-right: 1em;
+}
+
+.card-body{
+  padding: 0!important;
+}
+
+.hidden{
+  display: none;
+  transition: 1s;
+}
+
+.title{
+  font-family: 'Merienda', cursive;
+}
+
+.checkboxdiv{
+  position: relative;
+}
+
+.checkbox{
+  position: absolute;
+  top: 55% ;
+  transform: translateY(-50%);
+}
+
+.grid{
+  display: grid;
+  grid-template-columns: 35px auto auto;
+
+  //Márgenes de estética al cuerpo
+  margin-left: 1em;
+  padding: 0.5em!important;
+}
+
+.main-empty {
+  text-align: center;
+  color: #d5dde4;
+  /* Centramos el div en el centro de la pantalla */
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-right: -50%;
+  transform: translate(-50%, -50%);
+}
+
+.p-text {
+  font-size: 22px;
+  font-family: 'Amaranth', sans-serif;
+}
+
+.p-icon > i{
+  font-size: 50px;
+}
+
+.productname{
+  margin: 0;
+  font-size: 22px;
+  font-family: 'Amaranth', sans-serif;
+}
+
+.product-info{
+  margin-left: 1.5em;
+}
+
+.product-supermarket{
+  margin: 0;
+  font-size: 12px;
+  color: #b0b0b0;
+}
+
+.product-price{
+  margin: 0;
+  font-size: 12px;
+  color: #b0b0b0;
+}
+
+.product-icons{
+  display: grid;
+  grid-template-columns: auto auto;
+  font-size: 30px;
+}
+
+.product-icons > div{
+  left: 1em;
+}
+
+.product-icons > div>i{
+  text-align: right;
+}

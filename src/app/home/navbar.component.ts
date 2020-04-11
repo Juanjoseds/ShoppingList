@@ -19,8 +19,6 @@ import {Component, OnInit} from '@angular/core';
     </span>
     </mat-toolbar>
 `,
-  styleUrls: ['../app.component.scss']
+  styleUrls: ['./home.component.scss']
 })
-export class NavbarComponent {
-
-}
+export class NavbarComponent {}
