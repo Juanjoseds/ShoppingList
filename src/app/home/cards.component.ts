@@ -1,5 +1,7 @@
 import {Component} from '@angular/core';
 import {HomeComponent} from './home.component';
+import {DetailsComponent} from '../details/details.component';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-card-list',
@@ -7,7 +9,7 @@ import {HomeComponent} from './home.component';
     <div class="mainproducts">
 
       <div *ngIf="homeComponent.getCartLength() > 0">
-        <div class="card ml-1 mr-1 mb-1" *ngFor="let item of cart;">
+        <div class="card ml-1 mr-1 mb-1 card-complete" id="{{item}}0" *ngFor="let item of cart;">
           <div class="card-body grid">
                 <div class="checkboxdiv"><mat-checkbox color="primary" class="checkbox" (click)="onChecked(item)"></mat-checkbox></div>
                 <div class="product-info">
@@ -15,9 +17,11 @@ import {HomeComponent} from './home.component';
                   <p class="product-supermarket" id="{{item}}1">{{getSupermarket(item)}}</p>
                   <p class="product-price" id="{{item}}2">{{getPrice(item)}}</p>
                 </div>
-                <div class="product-icons">
-                  <div><i class="fas fa-trash"></i></div>
-                  <div><i class="far fa-edit"></i></div>
+                <div class="container">
+                  <div class="product-icons">
+                    <div><i class="far fa-trash-alt remove" (click)="deleteProduct(item)"></i></div>
+                    <div><i class="far fa-edit" (click)="goToDetails(item)"></i></div>
+                  </div>
                 </div>
             </div>
 
@@ -26,7 +30,7 @@ import {HomeComponent} from './home.component';
 
       <div class="main-empty-parent" *ngIf="homeComponent.getCartLength() == 0">
         <div class="main-empty">
-          <p class="p-icon"><i class="fas fa-broom"></i></p>
+          <p class="p-icon" ><i class="fas fa-broom"></i></p>
           <p class="p-text">La lista de la compra esta vacía</p>
         </div>
       </div>
@@ -36,7 +40,7 @@ import {HomeComponent} from './home.component';
 })
 
 export class CardsComponent {
-  constructor(public homeComponent: HomeComponent) {}
+  constructor(public homeComponent: HomeComponent, private router: Router) {}
   cart: string[] = this.homeComponent.model.cart;
 
   /*
@@ -45,9 +49,17 @@ export class CardsComponent {
   onChecked(item){
     this.homeComponent.model.items.forEach((i) => {
       if (i.product === item) {
-        console.log(i.bought);
+        const element = document.getElementById(item + '0');
         i.bought = !i.bought;
-        console.log(i.bought);
+        if (i.bought){
+          element.style.backgroundColor = '#EDFEE6';
+          element.style.borderColor = '#2BFF83';
+          element.style.transition = '500ms';
+        }else{
+          element.style.borderColor = 'rgba(0,0,0,.125)';
+          element.style.backgroundColor = 'white';
+          element.style.transition = '500ms';
+        }
       }
     });
   }
@@ -75,5 +87,23 @@ export class CardsComponent {
         document.getElementById(item + '2').innerHTML = i.price + ' €';
       }
     });
+  }
+
+  /*
+  * Borramos el producto de la lista de la compra
+  */
+
+  deleteProduct(item){
+    this.homeComponent.model.cart.forEach((i, index) => {
+      if (i === item) {
+        this.homeComponent.model.items[index].bought = false;
+        this.homeComponent.model.cart.splice(index, 1);
+        console.log(this.homeComponent.model.cart);
+      }
+    });
+  }
+
+  goToDetails(producto){
+    this.router.navigate(['/details', producto]);
   }
 }

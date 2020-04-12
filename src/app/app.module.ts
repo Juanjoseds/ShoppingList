@@ -48,7 +48,7 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
     MatListModule,
     RouterModule.forRoot([
       {path: '', component: HomeComponent},
-      {path: 'details', component: DetailsComponent}
+      {path: 'details/:producto', component: DetailsComponent}
     ]),
     MatCheckboxModule
 

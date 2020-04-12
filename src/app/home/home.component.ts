@@ -1,4 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Injectable, OnInit} from '@angular/core';
+import {from, Observable} from 'rxjs';
+import {first} from 'rxjs/operators';
+
+
+@Injectable({
+  providedIn: 'root'
+})
 
 @Component({
   selector: 'app-home',
@@ -15,6 +22,7 @@ export class HomeComponent implements OnInit {
   };
 
   ngOnInit(): void {}
+
 
   addItem(producto) {
     // Control de errores al añadir producto
@@ -88,6 +96,11 @@ export class HomeComponent implements OnInit {
     setTimeout(function(){
       element.classList.add('hidden');
     }, 10000);
+  }
+
+  findProduct(product): Observable<any>{
+    console.log(product);
+    return from(this.model.items).pipe(first((c: any) => c.product == product));
   }
 
 }

@@ -13,6 +13,13 @@
   padding: 0!important;
 }
 
+.card-complete{
+  border-radius: 0;
+  -webkit-box-shadow: 0px 1px 5px -2px rgba(0,0,0,0.75);
+  -moz-box-shadow: 0px 1px 5px -2px rgba(0,0,0,0.75);
+  box-shadow: 0px 1px 5px -2px rgba(0,0,0,0.75);
+}
+
 .hidden{
   display: none;
   transition: 1s;
@@ -34,7 +41,7 @@
 
 .grid{
   display: grid;
-  grid-template-columns: 35px auto auto;
+  grid-template-columns: 35px auto 7em;
 
   //Márgenes de estética al cuerpo
   margin-left: 1em;
@@ -83,16 +90,23 @@
   color: #b0b0b0;
 }
 
+.container{
+  position: relative;
+}
+
 .product-icons{
   display: grid;
   grid-template-columns: auto auto;
+  grid-column-gap: 15px;
   font-size: 30px;
+  // Centramos los iconos al centro (.container en relative)
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
 }
 
 .product-icons > div{
   left: 1em;
-}
-
-.product-icons > div>i{
   text-align: right;
+  color: #373737;
 }
