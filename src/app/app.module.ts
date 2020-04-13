@@ -21,6 +21,10 @@ import { DetailsComponent } from './details/details.component';
 import {RouterModule} from '@angular/router';
 import { HomeComponent } from './home/home.component';
 import {MatCheckboxModule} from '@angular/material/checkbox';
+import {AngularFireModule} from '@angular/fire';
+import {AngularFireDatabaseModule} from '@angular/fire/database';
+import {AngularFireAuthModule} from '@angular/fire/auth';
+import {environment} from '../environments/environment';
 
 @NgModule({
   declarations: [
@@ -50,7 +54,10 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
       {path: '', component: HomeComponent},
       {path: 'details/:producto', component: DetailsComponent}
     ]),
-    MatCheckboxModule
+    MatCheckboxModule,
+    AngularFireModule.initializeApp(environment.firebaseConfig),
+    AngularFireDatabaseModule,
+    AngularFireAuthModule
 
   ],
   providers: [],

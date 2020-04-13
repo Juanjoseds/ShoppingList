@@ -53,6 +53,7 @@ export class HomeComponent implements OnInit {
       } else {
         this.model.items.push({product: producto, bought: false, supermarket: null, price: null});
         this.addShoppingList(producto);
+        //localStorage.setItem('product', JSON.stringify(this.model.items));
       }
       console.log(this.model.cart);
       console.log(this.model.items);
@@ -99,8 +100,11 @@ export class HomeComponent implements OnInit {
   }
 
   findProduct(product): Observable<any>{
-    console.log(product);
+    console.log("DEBUG HOMECOMPONENT OBSERVABLE:");
+    //console.log(localStorage.getItem('product'));
     return from(this.model.items).pipe(first((c: any) => c.product == product));
   }
+
+
 
 }

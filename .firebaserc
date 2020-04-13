@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "micarritodaw": {
+      "hosting": {
+        "ShoppingList": [
+          "micarritodaw"
+        ]
+      }
+    }
+  }
+}
