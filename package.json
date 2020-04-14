@@ -16,7 +16,6 @@
     "@angular/common": "~9.1.0",
     "@angular/compiler": "~9.1.0",
     "@angular/core": "~9.1.0",
-    "@angular/fire": "^6.0.0",
     "@angular/forms": "~9.1.0",
     "@angular/localize": "~9.1.0",
     "@angular/material": "^9.2.0",
@@ -32,6 +31,8 @@
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "~0.901.0",
+    "firebase": "^7.14.0",
+    "@angular/fire": "^6.0.0",
     "@angular/cli": "~9.1.0",
     "@angular/compiler-cli": "~9.1.0",
     "@angular/language-service": "~9.1.0",

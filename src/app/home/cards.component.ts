@@ -1,7 +1,7 @@
 import {Component} from '@angular/core';
 import {HomeComponent} from './home.component';
-import {DetailsComponent} from '../details/details.component';
 import {Router} from '@angular/router';
+import {firebaseService} from '../firebaseService';
 
 @Component({
   selector: 'app-card-list',
@@ -9,18 +9,18 @@ import {Router} from '@angular/router';
     <div class="mainproducts">
 
       <div *ngIf="homeComponent.getCartLength() > 0">
-        <div class="card ml-1 mr-1 mb-1 card-complete" id="{{item}}0" *ngFor="let item of cart;">
+        <div class="card ml-1 mr-1 mb-1 card-complete" id="{{item}}0" *ngFor="let item of this.homeComponent.model.cart;">
           <div class="card-body grid">
-                <div class="checkboxdiv"><mat-checkbox color="primary" class="checkbox" (click)="onChecked(item)"></mat-checkbox></div>
+                <div class="checkboxdiv"><mat-checkbox [checked]=item.bought color="primary" class="checkbox" (click)="onChecked(item)"></mat-checkbox></div>
                 <div class="product-info">
-                  <p class="productname">{{item}}</p>
-                  <p class="product-supermarket" id="{{item}}1">{{getSupermarket(item)}}</p>
-                  <p class="product-price" id="{{item}}2">{{getPrice(item)}}</p>
+                  <p class="productname">{{item.product}}</p>
+                  <p class="product-supermarket" id="{{item.product}}1">{{getSupermarket(item.product)}}</p>
+                  <p class="product-price" id="{{item.product}}2">{{getPrice(item.product)}}</p>
                 </div>
                 <div class="container">
                   <div class="product-icons">
-                    <div><i class="far fa-trash-alt remove" (click)="deleteProduct(item)"></i></div>
-                    <div><i class="far fa-edit" (click)="goToDetails(item)"></i></div>
+                    <div><i class="far fa-trash-alt remove" (click)="deleteProduct(item.product)"></i></div>
+                    <div><i class="far fa-edit" (click)="goToDetails(item.product)"></i></div>
                   </div>
                 </div>
             </div>
@@ -40,14 +40,17 @@ import {Router} from '@angular/router';
 })
 
 export class CardsComponent {
-  constructor(public homeComponent: HomeComponent, private router: Router) {}
-  cart: string[] = this.homeComponent.model.cart;
+  constructor(public homeComponent: HomeComponent, private router: Router, private fbs: firebaseService) {}
 
   /*
   *   Método que cambia el valor de 'bought' del producto al hacer clic en el checkbox
    */
   onChecked(item){
-    this.homeComponent.model.items.forEach((i) => {
+    console.log(item);
+    this.fbs.cartRef.update(item.key, {
+      bought: !item.bought
+    });
+   /* this.homeComponent.model.items.forEach((i) => {
       if (i.product === item) {
         const element = document.getElementById(item + '0');
         i.bought = !i.bought;
@@ -61,7 +64,7 @@ export class CardsComponent {
           element.style.transition = '500ms';
         }
       }
-    });
+    });*/
   }
 
   /*

@@ -25,6 +25,7 @@ import {AngularFireModule} from '@angular/fire';
 import {AngularFireDatabaseModule} from '@angular/fire/database';
 import {AngularFireAuthModule} from '@angular/fire/auth';
 import {environment} from '../environments/environment';
+import {HttpClientModule} from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -33,8 +34,7 @@ import {environment} from '../environments/environment';
     NavbarComponent,
     CardsComponent,
     DetailsComponent,
-    HomeComponent
-
+    HomeComponent,
   ],
   imports: [
     BrowserModule,
@@ -57,8 +57,8 @@ import {environment} from '../environments/environment';
     MatCheckboxModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFireDatabaseModule,
-    AngularFireAuthModule
-
+    AngularFireAuthModule,
+    HttpClientModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

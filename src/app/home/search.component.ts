@@ -1,8 +1,10 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Injectable, OnInit} from '@angular/core';
 import {HomeComponent} from './home.component';
 import {FormControl} from '@angular/forms';
 import {Observable} from 'rxjs';
 import {startWith, map, debounceTime, filter} from 'rxjs/operators';
+import {firebaseService} from '../firebaseService';
+
 
 @Component({
   selector: 'search-bar',
@@ -32,7 +34,7 @@ export class SearchComponent implements OnInit {
   options: string[] = this.homeComponent.getProducts();
   filteredOptions: Observable<string[]>;
 
-  constructor(public homeComponent: HomeComponent) {}
+  constructor(public homeComponent: HomeComponent, private fbs: firebaseService) {}
 
   ngOnInit() {
     this.filteredOptions = this.myControl.valueChanges
@@ -46,7 +48,7 @@ export class SearchComponent implements OnInit {
 
   private _filter(value: string): string[] {
     const filterValue = value.toLowerCase();
-    this.options = this.homeComponent.getProducts();
+    console.log(this.homeComponent.getProducts());
     return this.options.filter(option => option.toLowerCase().includes(filterValue));
   }
 }

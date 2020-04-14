@@ -15,8 +15,7 @@ export class DetailsComponent implements OnInit {
   ngOnInit(): void {
     this.producto = this.ruta.snapshot.params['producto'];
     console.log(this.producto);
-    this.homeComponent.findProduct(this.ruta.snapshot.params['producto']).subscribe((c: any) => this.producto = c);
-    //console.log(this.homeComponent.getCartLength());
+    //this.homeComponent.findProduct(this.ruta.snapshot.params['producto']).subscribe((c: any) => this.producto = c);
   }
 
 }

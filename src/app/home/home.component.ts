@@ -1,6 +1,8 @@
-import {Component, Injectable, OnInit} from '@angular/core';
-import {from, Observable} from 'rxjs';
+import {Component, Injectable, OnDestroy, OnInit} from '@angular/core';
+import {from, Observable, Subscription} from 'rxjs';
 import {first} from 'rxjs/operators';
+import {firebaseService} from '../firebaseService';
+import {SearchComponent} from './search.component';
 
 
 @Injectable({
@@ -12,7 +14,7 @@ import {first} from 'rxjs/operators';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent implements OnDestroy {
   errorMessage: string[] = ['Has superado los carácteres permitidos',
     'No puedes dejar en blanco el nombre del producto'];
   model = {
@@ -20,8 +22,15 @@ export class HomeComponent implements OnInit {
     items: [],
     cart: []
   };
+  suscripcion: Subscription;
+  suscripcionCart: Subscription;
 
-  ngOnInit(): void {}
+  constructor(private fbs: firebaseService) {
+    this.fbs.login().subscribe(() => {
+      this.suscripcion = fbs.getFireItems().subscribe((data: any) => this.model.items = data);
+      this.suscripcionCart = fbs.getFireCart().subscribe((dataCart: any) => this.model.cart = dataCart);
+    });
+  }
 
 
   addItem(producto) {
@@ -31,55 +40,43 @@ export class HomeComponent implements OnInit {
     }else if (producto.length > 30){
       this.alertMessage(this.errorMessage[0]);
     }else {
-
-      if (this.model.items.length !== 0) {
+      const products = this.model.items.length;
+      // @ts-ignore
+      if (products !== 0) {
         // Comprobamos si ya existe el producto
         let duplicado = false;
+
         this.model.items.forEach((item) => {
-          if (item.product === producto) {
+          if (item.product === producto){
             duplicado = true;
           }
         });
 
         // Si el producto existe lo añadimos a la lista de la compra
         if (duplicado) {
-          this.addShoppingList(producto);
+          this.fbs.addToCart({ product: producto, bought: false});
         } else {
           // Si no existe, lo añadimos al JSON y a la lista de la compra
-          this.model.items.push({product: producto, bought: false, supermarket: null, price: null});
-          this.addShoppingList(producto);
+          this.fbs.addItem({product: producto, supermarket: 'Mercadona', price: 100});
+          this.fbs.addToCart({ product: producto, bought: false});
         }
         // Si el JSON está vacío lo añadimos al JSON y a la lista de la compra
       } else {
-        this.model.items.push({product: producto, bought: false, supermarket: null, price: null});
-        this.addShoppingList(producto);
-        //localStorage.setItem('product', JSON.stringify(this.model.items));
+        this.fbs.addItem({product: producto, supermarket: 'Mercadona', price: 100});
+        this.fbs.addToCart({ product: producto, bought: false});
       }
-      console.log(this.model.cart);
-      console.log(this.model.items);
     }
-  }
-
-  /*
-  * Método que se encarga de devolver un array de los productos del JSON.
-  */
-  getProducts() {
-    let products: string[] = [];
-    this.model.items.forEach((item, index) => products.push(item.product));
-    return products;
   }
 
   getCartLength(){
     return this.model.cart.length;
   }
 
-  /*
-  * Método que se encarga de añadir un producto a la lista de la compra
-  */
-  addShoppingList(producto){
-    if (this.model.cart.indexOf(producto) === -1){
-      this.model.cart.push(producto);
-    }
+  getProducts(){
+    let products: string[] = [];
+    this.model.items.forEach((item) => products.push(item.product));
+    console.log(products);
+    return products;
   }
 
   /*
@@ -99,12 +96,14 @@ export class HomeComponent implements OnInit {
     }, 10000);
   }
 
-  findProduct(product): Observable<any>{
+  /*findProduct(product): Observable<any>{
     console.log("DEBUG HOMECOMPONENT OBSERVABLE:");
     //console.log(localStorage.getItem('product'));
     return from(this.model.items).pipe(first((c: any) => c.product == product));
+  }*/
+
+  ngOnDestroy(): void {
+    this.suscripcion.unsubscribe();
   }
-
-
 
 }
