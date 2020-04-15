@@ -60,10 +60,4 @@ export class firebaseService {
         })));
   }
 
-  update(item){
-    this.itemsRef.update(item.key, {
-      price: item.price,
-      supermarket: item.supermarket,
-    });
-  }
 }

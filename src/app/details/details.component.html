@@ -9,12 +9,12 @@
   <div>
     <div class="data">
       <label class="label-text" for="nombre">Nombre del producto:</label><br>
-      <input type="text" id="nombre" name="nombre" placeholder=""><br>
+      <input required type="text" id="nombre" name="nombre" value={{producto}}><br>
       <label class="label-text" for="precio">Precio del producto:</label><br>
-      <input type="text" id="precio" name="precio" placeholder=""><br>
+      <input type="number" id="precio" name="precio" placeholder=""><br>
       <label class="label-text" for="super">Supermercado de preferencia:</label><br>
-      <input type="text" id="super" name="super" placeholder="Doe"><br><br>
-      <input type="submit" value="Submit">
+      <input type="text" id="super" name="super" placeholder=""><br><br>
+      <input type="submit" value="Submit" (click)="getItem()">
     </div>
   </div>
 </div>

@@ -1,8 +1,8 @@
-import {Component, Injectable, OnDestroy, OnInit} from '@angular/core';
+import {Component, Injectable, OnDestroy} from '@angular/core';
 import {from, Observable, Subscription} from 'rxjs';
-import {first} from 'rxjs/operators';
+import {debounceTime, first, map, startWith} from 'rxjs/operators';
 import {firebaseService} from '../firebaseService';
-import {SearchComponent} from './search.component';
+import {FormControl} from '@angular/forms';
 
 
 @Injectable({
@@ -14,6 +14,7 @@ import {SearchComponent} from './search.component';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })
+
 export class HomeComponent implements OnDestroy {
   errorMessage: string[] = ['Has superado los carácteres permitidos',
     'No puedes dejar en blanco el nombre del producto'];
@@ -22,16 +23,34 @@ export class HomeComponent implements OnDestroy {
     items: [],
     cart: []
   };
+  login: Subscription;
   suscripcion: Subscription;
   suscripcionCart: Subscription;
 
+  myControl = new FormControl();
+  options: string[] = [];
+  filteredOptions: Observable<string[]>;
+
   constructor(private fbs: firebaseService) {
-    this.fbs.login().subscribe(() => {
-      this.suscripcion = fbs.getFireItems().subscribe((data: any) => this.model.items = data);
+    this.login = this.fbs.login().subscribe(() => {
+      this.suscripcion = fbs.getFireItems().subscribe((data: any) => { this.model.items = data; this.options = this.getProducts(); this.updateAutoComplete(); });
       this.suscripcionCart = fbs.getFireCart().subscribe((dataCart: any) => this.model.cart = dataCart);
     });
   }
 
+  private updateAutoComplete(){
+    this.filteredOptions = this.myControl.valueChanges
+      .pipe(
+        startWith(''),
+        // Tiempo de retardo para cada petición
+        debounceTime(500),
+        map(value => this._filter(value))
+      );
+  }
+  private _filter(value: string): string[] {
+    const filterValue = value.toLowerCase();
+    return this.options.filter(option => option.toLowerCase().includes(filterValue));
+  }
 
   addItem(producto) {
     // Control de errores al añadir producto
@@ -57,12 +76,12 @@ export class HomeComponent implements OnDestroy {
           this.fbs.addToCart({ product: producto, bought: false});
         } else {
           // Si no existe, lo añadimos al JSON y a la lista de la compra
-          this.fbs.addItem({product: producto, supermarket: 'Mercadona', price: 100});
+          this.fbs.addItem({product: producto, supermarket: null, price: null});
           this.fbs.addToCart({ product: producto, bought: false});
         }
         // Si el JSON está vacío lo añadimos al JSON y a la lista de la compra
       } else {
-        this.fbs.addItem({product: producto, supermarket: 'Mercadona', price: 100});
+        this.fbs.addItem({product: producto, supermarket: null, price: null});
         this.fbs.addToCart({ product: producto, bought: false});
       }
     }
@@ -75,6 +94,7 @@ export class HomeComponent implements OnDestroy {
   getProducts(){
     let products: string[] = [];
     this.model.items.forEach((item) => products.push(item.product));
+    console.log('model.item:');
     console.log(products);
     return products;
   }
@@ -96,14 +116,10 @@ export class HomeComponent implements OnDestroy {
     }, 10000);
   }
 
-  /*findProduct(product): Observable<any>{
-    console.log("DEBUG HOMECOMPONENT OBSERVABLE:");
-    //console.log(localStorage.getItem('product'));
-    return from(this.model.items).pipe(first((c: any) => c.product == product));
-  }*/
-
   ngOnDestroy(): void {
+    this.login.unsubscribe();
     this.suscripcion.unsubscribe();
+    this.suscripcionCart.unsubscribe();
   }
 
 }

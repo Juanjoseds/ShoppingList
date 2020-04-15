@@ -9,7 +9,7 @@ import {firebaseService} from '../firebaseService';
     <div class="mainproducts">
 
       <div *ngIf="homeComponent.getCartLength() > 0">
-        <div class="card ml-1 mr-1 mb-1 card-complete" id="{{item}}0" *ngFor="let item of this.homeComponent.model.cart;">
+        <div class="card ml-1 mr-1 mb-1 card-complete" id="{{item}}0" *ngFor="let item of this.homeComponent.model.cart">
           <div class="card-body grid">
                 <div class="checkboxdiv"><mat-checkbox [checked]=item.bought color="primary" class="checkbox" (click)="onChecked(item)"></mat-checkbox></div>
                 <div class="product-info">
@@ -19,7 +19,7 @@ import {firebaseService} from '../firebaseService';
                 </div>
                 <div class="container">
                   <div class="product-icons">
-                    <div><i class="far fa-trash-alt remove" (click)="deleteProduct(item.product)"></i></div>
+                    <div><i class="far fa-trash-alt remove" (click)="deleteProduct(item)"></i></div>
                     <div><i class="far fa-edit" (click)="goToDetails(item.product)"></i></div>
                   </div>
                 </div>
@@ -43,10 +43,9 @@ export class CardsComponent {
   constructor(public homeComponent: HomeComponent, private router: Router, private fbs: firebaseService) {}
 
   /*
-  *   Método que cambia el valor de 'bought' del producto al hacer clic en el checkbox
+  *   Método que cambia el valor de 'bought' en Firebase al hacer clic en el checkbox
    */
   onChecked(item){
-    console.log(item);
     this.fbs.cartRef.update(item.key, {
       bought: !item.bought
     });
@@ -73,8 +72,11 @@ export class CardsComponent {
   getSupermarket(item){
     this.homeComponent.model.items.forEach((i) => {
       if (i.product === item) {
-        i.supermarket = 'Mercadona';
-        document.getElementById(item + '1').innerHTML = i.supermarket;
+        if (i.supermarket == null){
+          document.getElementById(item + '1').innerHTML = "Sin supermercado favorito";
+        }else{
+          document.getElementById(item + '1').innerHTML = i.supermarket;
+        }
       }
     });
   }
@@ -86,8 +88,11 @@ export class CardsComponent {
   getPrice(item){
     this.homeComponent.model.items.forEach((i) => {
       if (i.product === item) {
-        i.price = 500;
-        document.getElementById(item + '2').innerHTML = i.price + ' €';
+        if (i.price == null){
+          document.getElementById(item + '2').innerHTML = "Sin precio definido";
+        }else{
+          document.getElementById(item + '2').innerHTML = i.price + ' €';
+        }
       }
     });
   }
@@ -97,13 +102,8 @@ export class CardsComponent {
   */
 
   deleteProduct(item){
-    this.homeComponent.model.cart.forEach((i, index) => {
-      if (i === item) {
-        this.homeComponent.model.items[index].bought = false;
-        this.homeComponent.model.cart.splice(index, 1);
-        console.log(this.homeComponent.model.cart);
-      }
-    });
+    this.fbs.cartRef.remove(item.key);
+    console.log("estoy borrando");
   }
 
   goToDetails(producto){

@@ -14,41 +14,21 @@ import {firebaseService} from '../firebaseService';
         <input class="form-control form-margin mt-0" type="text" #item
                placeholder="Buscar producto..."
                aria-label="Number"
-               [formControl]="myControl"
+               [formControl]="homeComponent.myControl"
                [matAutocomplete]="auto">
         <mat-autocomplete #auto="matAutocomplete">
-          <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+          <mat-option *ngFor="let option of homeComponent.filteredOptions | async" [value]="option">
             {{option}}
           </mat-option>
         </mat-autocomplete>
         <div class="input-group-append">
-          <button class="btn btn-outline-secondary" (click)="homeComponent.addItem(myControl.value); myControl.setValue('');">Añadir
+          <button class="btn btn-outline-secondary" (click)="homeComponent.addItem(homeComponent.myControl.value); homeComponent.myControl.setValue('');">Añadir
           </button>
         </div>
       </div>
     </div>
   `
 })
-export class SearchComponent implements OnInit {
-  myControl = new FormControl();
-  options: string[] = this.homeComponent.getProducts();
-  filteredOptions: Observable<string[]>;
-
-  constructor(public homeComponent: HomeComponent, private fbs: firebaseService) {}
-
-  ngOnInit() {
-    this.filteredOptions = this.myControl.valueChanges
-      .pipe(
-        startWith(''),
-        // Tiempo de retardo para cada petición
-        debounceTime(500),
-        map(value => this._filter(value))
-      );
-  }
-
-  private _filter(value: string): string[] {
-    const filterValue = value.toLowerCase();
-    console.log(this.homeComponent.getProducts());
-    return this.options.filter(option => option.toLowerCase().includes(filterValue));
-  }
+export class SearchComponent {
+  constructor(public homeComponent: HomeComponent) {}
 }
