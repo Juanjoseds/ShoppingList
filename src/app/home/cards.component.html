@@ -1,0 +1,107 @@
+<div class="mainproducts">
+
+  <div class="gridfilter">
+    <div>
+      <mat-button-toggle-group #group="matButtonToggleGroup" value="supermercado">
+        <mat-button-toggle value="supermercado" aria-label="Text align left">
+          <mat-icon>store</mat-icon>
+        </mat-button-toggle>
+        <mat-button-toggle value="marcado" aria-label="Text align center">
+          <mat-icon>playlist_add_check</mat-icon>
+        </mat-button-toggle>
+      </mat-button-toggle-group>
+    </div>
+    <div>
+      <p class="ordenado">Ordenado por {{group.value}}</p>
+    </div>
+  </div>
+
+  <div *ngIf="homeComponent.getCartLength() > 0">
+    <div *ngIf="group.value == 'supermercado'">
+      <div *ngFor="let supermarket of this.homeComponent.supermarkets">
+        <p class="list-supermarket">{{supermarket}}</p>
+        <!-- Iterar por supermercado -->
+        <div *ngFor="let item of this.homeComponent.model.cart" [ngClass]="homeComponent.checkSupermarket(item.product)">
+
+          <div id="{{item.product}}0" class="card ml-1 mr-1 mb-1 card-complete {{item.product}}0" *ngIf="homeComponent.checkedSupermarket == supermarket">
+          <div class="card-body grid">
+            <div class="checkboxdiv"><mat-checkbox [checked]=item.bought color="primary" class="checkbox" (click)="onChecked(item)"></mat-checkbox></div>
+            <div class="product-info">
+              <p class="productname">{{item.product}}</p>
+              <p class="product-supermarket" id="{{item.product}}1">{{getSupermarket(item.product)}}</p>
+              <p class="product-price" id="{{item.product}}2">{{getPrice(item.product)}}</p>
+            </div>
+            <div class="container">
+              <div class="product-icons">
+                <div><i class="far fa-trash-alt remove" (click)="deleteProduct(item)"></i></div>
+                <div><i class="far fa-edit" (click)="goToDetails(item.product)"></i></div>
+              </div>
+            </div>
+          </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="group.value == 'marcado'">
+      <h6>&nbsp;</h6>
+      <div *ngFor="let item of this.homeComponent.model.cart">
+        <!-- Iterar por marcado -->
+        <div *ngIf="item.bought == false">
+          <div id="{{item.product}}0" class="card ml-1 mr-1 mb-1 card-complete">
+            <div class="card-body grid">
+              <div class="checkboxdiv"><mat-checkbox [checked]=item.bought color="primary" class="checkbox" (click)="onChecked(item)"></mat-checkbox></div>
+              <div class="product-info">
+                <p class="productname">{{item.product}}</p>
+                <p class="product-supermarket" id="{{item.product}}1">{{getSupermarket(item.product)}}</p>
+                <p class="product-price" id="{{item.product}}2">{{getPrice(item.product)}}</p>
+              </div>
+              <div class="container">
+                <div class="product-icons">
+                  <div><i class="far fa-trash-alt remove" (click)="deleteProduct(item)"></i></div>
+                  <div><i class="far fa-edit" (click)="goToDetails(item.product)"></i></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div *ngFor="let item of this.homeComponent.model.cart">
+        <!-- Iterar por marcado -->
+        <div *ngIf="item.bought == true">
+          <div id="{{item.product}}0" class="card ml-1 mr-1 mb-1 card-complete">
+            <div class="card-body grid">
+              <div class="checkboxdiv"><mat-checkbox [checked]=item.bought color="primary" class="checkbox" (click)="onChecked(item)"></mat-checkbox></div>
+              <div class="product-info">
+                <p class="productname">{{item.product}}</p>
+                <p class="product-supermarket" id="{{item.product}}1">{{getSupermarket(item.product)}}</p>
+                <p class="product-price" id="{{item.product}}2">{{getPrice(item.product)}}</p>
+              </div>
+              <div class="container">
+                <div class="product-icons">
+                  <div><i class="far fa-trash-alt remove" (click)="deleteProduct(item)"></i></div>
+                  <div><i class="far fa-edit" (click)="goToDetails(item.product)"></i></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+
+
+
+  </div>
+
+  <div class="main-empty-parent" *ngIf="homeComponent.getCartLength() == 0">
+    <div class="main-empty">
+      <p class="p-icon" ><i class="fas fa-broom"></i></p>
+      <p class="p-text">La lista de la compra está vacía</p>
+    </div>
+  </div>
+
+</div>

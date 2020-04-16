@@ -1,8 +1,4 @@
 @import '~bootstrap/dist/css/bootstrap.min.css';
-.AppOptions{
-  flex: 1 1 auto;
-}
-
 .mainAlert{
   margin-top: 1em;
   margin-left: 1em;
@@ -15,9 +11,9 @@
 
 .card-complete{
   border-radius: 0;
-  -webkit-box-shadow: 0px 1px 5px -2px rgba(0,0,0,0.75);
-  -moz-box-shadow: 0px 1px 5px -2px rgba(0,0,0,0.75);
-  box-shadow: 0px 1px 5px -2px rgba(0,0,0,0.75);
+  margin: 0 0 2px 0!important;
+  border-left-width: 0;
+  border-right-width: 0;
 }
 
 .hidden{
@@ -61,7 +57,7 @@
 
 .p-text {
   font-size: 22px;
-  font-family: 'Amaranth', sans-serif;
+  font-family: 'Courgette', cursive;
 }
 
 .p-icon > i{
@@ -71,7 +67,7 @@
 .productname{
   margin: 0;
   font-size: 22px;
-  font-family: 'Amaranth', sans-serif;
+  font-family: 'Catamaran', sans-serif;
 }
 
 .product-info{
@@ -110,3 +106,40 @@
   text-align: right;
   color: #373737;
 }
+
+.gridfilter{
+  display: grid;
+  grid-template-columns: auto auto;
+}
+
+.ordenado{
+  margin-top: 0.5em;
+  color: #b0b0b0;
+}
+
+.mat-button-toggle-group{
+  margin-left: 1em;
+}
+
+// Separador de compra
+.list-supermarket {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  margin-left: 1em;
+  margin-top: 1em;
+  margin-right: 1em;
+}
+.list-supermarket::before, .list-supermarket::after {
+  content: '';
+  flex: 1;
+  border-bottom: 1px solid #cfcfcf;
+}
+.list-supermarket::before {
+  margin-right: .25em;
+}
+.list-supermarket::after {
+  margin-left: .25em;
+}
+
+

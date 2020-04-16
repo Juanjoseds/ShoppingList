@@ -26,6 +26,9 @@ import {AngularFireDatabaseModule} from '@angular/fire/database';
 import {AngularFireAuthModule} from '@angular/fire/auth';
 import {environment} from '../environments/environment';
 import {HttpClientModule} from '@angular/common/http';
+import {MatButtonToggleModule} from '@angular/material/button-toggle';
+import {MatSelectModule} from '@angular/material/select';
+import {MatGridListModule} from '@angular/material/grid-list';
 
 @NgModule({
   declarations: [
@@ -59,6 +62,9 @@ import {HttpClientModule} from '@angular/common/http';
     AngularFireDatabaseModule,
     AngularFireAuthModule,
     HttpClientModule,
+    MatButtonToggleModule,
+    MatSelectModule,
+    MatGridListModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

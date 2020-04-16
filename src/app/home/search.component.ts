@@ -1,8 +1,5 @@
-import {Component, Injectable, OnInit} from '@angular/core';
+import {Component} from '@angular/core';
 import {HomeComponent} from './home.component';
-import {FormControl} from '@angular/forms';
-import {Observable} from 'rxjs';
-import {startWith, map, debounceTime, filter} from 'rxjs/operators';
 import {firebaseService} from '../firebaseService';
 
 
@@ -10,19 +7,22 @@ import {firebaseService} from '../firebaseService';
   selector: 'search-bar',
   template: `
     <div class="card-body">
-      <div class="input-group input-group-sm mb-2">
-        <input class="form-control form-margin mt-0" type="text" #item
+      <div class="input-group input-group-sm mb-1 ">
+        <input class="form-control form-margin mt-0 searchbar" type="text" #item
                placeholder="Buscar producto..."
                aria-label="Number"
                [formControl]="homeComponent.myControl"
-               [matAutocomplete]="auto">
+               [matAutocomplete]="auto"
+                (keyup.enter)="homeComponent.addItem(homeComponent.myControl.value); homeComponent.myControl.setValue('');">
         <mat-autocomplete #auto="matAutocomplete">
           <mat-option *ngFor="let option of homeComponent.filteredOptions | async" [value]="option">
-            {{option}}
+            {{option}}<mat-select-trigger >
+              <mat-icon class="equis" (click)="homeComponent.remove(option)">clear</mat-icon>
+            </mat-select-trigger>
           </mat-option>
         </mat-autocomplete>
         <div class="input-group-append">
-          <button class="btn btn-outline-secondary" (click)="homeComponent.addItem(homeComponent.myControl.value); homeComponent.myControl.setValue('');">Añadir
+          <button class="btn btn-outline-secondary searchbutton" (click)="homeComponent.addItem(homeComponent.myControl.value); homeComponent.myControl.setValue('');"><i class="fas fa-plus"></i>
           </button>
         </div>
       </div>
@@ -30,5 +30,5 @@ import {firebaseService} from '../firebaseService';
   `
 })
 export class SearchComponent {
-  constructor(public homeComponent: HomeComponent) {}
+  constructor(public homeComponent: HomeComponent, public fbs: firebaseService) {}
 }

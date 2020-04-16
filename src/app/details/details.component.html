@@ -2,19 +2,28 @@
 <div>
   <div class="container-data">
     <div class="product-title">
-      <h2>{{producto}}</h2>
+      <div matRipple class="backicon my-ripple-container" [matRippleUnbounded]=true (click)="goToHome()"><span class="material-icons">arrow_back_ios</span></div>
+      <div><h2>{{producto}}</h2></div>
     </div>
   </div>
 
   <div>
+    <div class="directAccess mt-3 text-center">
+
+      <button type="button" class="btn btn-outline-info ml-1" (click)="shortcut(1)">Mercadona</button>
+      <button type="button" class="btn btn-outline-info ml-1" (click)="shortcut(2)">Lidl</button>
+      <button type="button" class="btn btn-outline-info ml-1" (click)="shortcut(3)">Alcampo</button>
+      <button type="button" class="btn btn-outline-info ml-1" (click)="shortcut(4)">Hiperdino</button>
+
+    </div>
     <div class="data">
-      <label class="label-text" for="nombre">Nombre del producto:</label><br>
-      <input required type="text" id="nombre" name="nombre" value={{producto}}><br>
-      <label class="label-text" for="precio">Precio del producto:</label><br>
-      <input type="number" id="precio" name="precio" placeholder=""><br>
-      <label class="label-text" for="super">Supermercado de preferencia:</label><br>
-      <input type="text" id="super" name="super" placeholder=""><br><br>
-      <input type="submit" value="Submit" (click)="getItem()">
+      <label class="label-text" for="nombre">Nombre del producto</label><br>
+      <input type="text" class="form-control form-margin" id="nombre" name="nombre" [placeholder]="producto"><br>
+      <label class="label-text" for="precio">Precio del producto</label><br>
+      <input type="number" class="form-control form-margin" id="precio" name="precio" [placeholder]="this.price" placeholder=""><br>
+      <label class="label-text" for="supermarket">Supermercado de preferencia</label><br>
+      <input type="text" class="form-control form-margin" id="supermarket" name="super" [placeholder]="this.supermarket"><br><br>
+      <button matRipple class="my-ripple-container btn btn-primary btn-lg btn-block" type="submit" (click)="getItem()">Añadir producto</button>
     </div>
   </div>
 </div>

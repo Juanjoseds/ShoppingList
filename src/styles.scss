@@ -19,6 +19,32 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   margin:0!important;
 }
 
+.searchbar{
+  border-radius: 5em!important;
+  padding: 1.4em!important;
+}
+
+.searchbutton{
+  border-radius:50%!important;
+  margin-left: 1em;
+  width: 40px;
+  height: 40px;
+}
+
+.mat-autocomplete-panel {
+  border-radius: 1em!important;
+}
+
+.mat-icon{
+  vertical-align: center;
+  float: right;
+  margin-top: 5px;
+}
+
+.equis {
+  margin-top: 0.5em;
+  color: #c4c4c4;
+}
 
 
 
