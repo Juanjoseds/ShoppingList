@@ -1,0 +1,29 @@
+{
+  "name": "ShoppingList",
+  "short_name": "ShoppingList",
+  "theme_color": "#83E5FF",
+  "background_color": "#FFFFFF",
+  "display": "standalone",
+  "scope": "./",
+  "start_url": "./",
+  "icons": [
+    {
+      "src": "assets/icons/icon-64x64.png",
+      "sizes": "64x64",
+      "type": "image/png",
+      "purpose": "maskable any"
+    },
+    {
+      "src": "assets/icons/icon-128x128.png",
+      "sizes": "128x128",
+      "type": "image/png",
+      "purpose": "maskable any"
+    },
+    {
+      "src": "assets/icons/icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable any"
+    }
+  ]
+}

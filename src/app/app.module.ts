@@ -29,6 +29,7 @@ import {HttpClientModule} from '@angular/common/http';
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
 import {MatSelectModule} from '@angular/material/select';
 import {MatGridListModule} from '@angular/material/grid-list';
+import { ServiceWorkerModule } from '@angular/service-worker';
 
 @NgModule({
   declarations: [
@@ -65,6 +66,7 @@ import {MatGridListModule} from '@angular/material/grid-list';
     MatButtonToggleModule,
     MatSelectModule,
     MatGridListModule,
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
   ],
   providers: [],
   bootstrap: [AppComponent]
