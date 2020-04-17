@@ -81,7 +81,6 @@ export class DetailsComponent implements OnInit, OnDestroy {
    */
   getNameFixed(){
     if ((document.getElementById('nombre') as HTMLInputElement).value.trim().length < 2) {
-      console.log(this.producto);
       return this.producto;
     }else{
       return (document.getElementById('nombre') as HTMLInputElement).value;
@@ -109,7 +108,6 @@ export class DetailsComponent implements OnInit, OnDestroy {
    *  Cambia en Firebase el nombre del producto con la key específica.
    */
   updateCart(key){
-    console.log(key);
     this.fbs.cartRef.update(key, {
       product: this.getNameFixed(),
     });
